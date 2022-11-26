@@ -1,9 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components";
+import BigCard from "./BigCard";
 
 export default function CardProduct({product}) {
+  const [highlight, setHighlight] = useState(false)
+  
+
+  // function selected(){
+  //   return(<BigCard />)
+  // }
+
   return (
-    <MiniCardStyle>
-      <div>
+    <MiniCardStyle onClick={() => setHighlight(!highlight)}>
+      <div >
         <h3>{product.product}</h3>
         <p>
           {product.description}
@@ -14,11 +23,13 @@ export default function CardProduct({product}) {
         src="https://media-cdn.tripadvisor.com/media/photo-s/16/5a/ea/95/marguerita.jpg"
         alt="pizza marguerita"
       />
+      {highlight && <BigCard product={product}/>}
     </MiniCardStyle>
   );
 }
 
 const MiniCardStyle = styled.div`
+background-color:#fefefe;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -31,26 +42,25 @@ const MiniCardStyle = styled.div`
   align-items: center;
 
   &&:hover {
-    box-shadow: 0 0 3px black;
+    box-shadow: 0 0 5px #667302;
   }
 
   > div {
-    h3 {
+    >h3 {
       font-size: 1.8rem;
       margin-bottom: 20px;
     }
-    p {
+    >p {
       font-size: 1.125rem;
-      margin-bottom: 20px;
+      margin-bottom: 50px;
       margin-right: 5px;
     }
-    span {
+    >span {
       font-size: 1.325rem;
-      margin-bottom: 10px;
     }
   }
 
-  img {
+  >img {
     width: 35%;
     align-self: flex-end;
   }

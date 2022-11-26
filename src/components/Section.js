@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import CardProduct from "./CardProduct";
 
-export default function Section({ pizzas }) {
-  console.log(pizzas);
+export default function Section({ pizzas, titulo }) {
   return (
     <SectionStyle>
-      <h2>Pizzas</h2>
-      <div>{pizzas.map(product => <CardProduct product={product}/>)}
+      <h2>{titulo}</h2>
+      <div>
+        {pizzas.map((product) => (
+          <CardProduct product={product} />
+        ))}
       </div>
     </SectionStyle>
   );

@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body{
-	background-color:#E5E5E5;
+	background-color:#FFFFFF;
 	font-family: 'Lexend Deca', sans-serif;
 
 }

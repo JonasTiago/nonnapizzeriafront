@@ -38,10 +38,11 @@ export default function Home() {
   ];
 
   return (
-    <HomeStyle>
+    <HomeStyle >
       <Header />
-      <Section pizzas={pizzas} />
-      <Section pizzas={pizzas} />
+      <Section pizzas={pizzas} titulo="Pizzas" />
+      {/* <Section pizzas={pizzas} titulo="Sobremesa"/>
+      <Section pizzas={pizzas} titulo="Bebidas"/> */}
     </HomeStyle>
   );
 }
