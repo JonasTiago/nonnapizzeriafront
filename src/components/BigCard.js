@@ -4,15 +4,31 @@ import { CartContext } from "../contexts/CartContext";
 
 export default function BigCard({ product }) {
   const { productsCart, setProductsCart } = useContext(CartContext);
-  console.log(productsCart);
 
   function fillCart(price) {
+    const amountProducts = productsCart.filter(
+      (productCart) => productCart.id === product.id
+    );
+
+    const amountTotal = amountProducts[0]?.amount ? parseInt(amountProducts[0].amount) + 1 : 1;
+
+    
     const productAddCart = {
       name: product.product,
       description: product.description,
       price: parseFloat(price).toFixed(2),
+      id: product.id,
+      amount: amountTotal,
     };
-    setProductsCart([...productsCart, productAddCart]);
+
+    amountProducts?.length
+      ? setProductsCart([
+          ...productsCart.filter(
+            (productCart) => productCart.id !== product.id
+          ),
+          productAddCart,
+        ])
+      : setProductsCart([...productsCart, productAddCart]);
   }
 
   return (
@@ -23,26 +39,14 @@ export default function BigCard({ product }) {
           src={
             "https://media-cdn.tripadvisor.com/media/photo-s/16/5a/ea/95/marguerita.jpg"
           }
-          alt={""}
+          alt={product.product}
         />
         <p>{product.description}</p>
         <PriceStyle>
-          <button
-            onClick={() => fillCart(parseFloat(product.price).toFixed(2))}
-          >
-            Pequena
+          <button onClick={() => fillCart(parseFloat(product.price))}>
+            Adicionar ao Carrinho
             <br />
             R$ {parseFloat(product.price).toFixed(2)}
-          </button>
-          <button onClick={() => fillCart(parseFloat(product.price) + 10)}>
-            Media
-            <br />
-            R$ {(parseFloat(product.price) + 10).toFixed(2)}
-          </button>
-          <button onClick={() => fillCart(parseFloat(product.price) + 30)}>
-            Grande
-            <br />
-            R$ {(parseFloat(product.price) + 30.0).toFixed(2)}
           </button>
         </PriceStyle>
       </ProductDetails>
@@ -51,7 +55,7 @@ export default function BigCard({ product }) {
 }
 
 const BigCardStyle = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -94,8 +98,8 @@ const PriceStyle = styled.div`
     background-color: #667302;
     border: none;
     margin: 10px 20px;
-    width: 150px;
-    height: 60px;
+    width: 250px;
+    height: 65px;
     cursor: pointer;
     box-shadow: 0 0 2px black;
     border-radius: 5px;

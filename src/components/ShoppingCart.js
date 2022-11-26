@@ -1,11 +1,24 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CartContext } from "../contexts/CartContext";
 
 export default function ShoppingCart() {
-  const { productsCart, openCart, setOpenCart } = useContext(CartContext);
+  const { productsCart, setProductsCart, openCart, setOpenCart } =
+    useContext(CartContext);
+  const [priceTotal, setPreceTotal] = useState();
 
-  console.log(productsCart);
+  useEffect(() => {
+    const prices = productsCart.map((product) => parseInt(product.price)*(product.amount));
+    const priceSum = prices.length ? prices.reduce((a, b) => a + b) : 0;
+
+    setPreceTotal(parseInt(priceSum).toFixed(2));
+  }, [productsCart]);
+
+  function removerProduct(id){
+    const itemCart = productsCart.filter(product => product.id !== id)
+    setProductsCart(itemCart)
+  }
+
   return (
     <CartStyle open={openCart}>
       <div>
@@ -36,27 +49,22 @@ export default function ShoppingCart() {
         <hr />
       </div>
       <section>
-        {/*productsCart?.length > 0 &&*/
-          productsCart?.map((product) => (
-            <RequestStyle>
-              <div>
-                <h5>{product.name}</h5>
-                <p>Calabresa, queijo e molho de tomate</p>
-              </div>
-              <span>20,20</span>
-            </RequestStyle>
-          ))}
-        {/* <RequestStyle>
-          <div>
-            <h5>Pizza de Calabresa</h5>
-            <p>Calabresa, queijo e molho de tomate</p>
-          </div>
-          <span>20,20</span>
-        </RequestStyle> */}
+        {productsCart?.map((product) => (
+          <RequestStyle key={product.id}>
+            <div>
+              <h5>
+                {product.name}
+              </h5>
+            </div>
+            <span>{product.amount}</span>
+            <span>{product.price*product.amount}</span>
+            <p onClick={() => removerProduct(product.id)}>Remover</p>
+          </RequestStyle>
+        ))}
       </section>
       <TotalStyle>
         <p>Total</p>
-        <span>00.00</span>
+        <span>{priceTotal}</span>
       </TotalStyle>
       <button>Finalizar Pedido</button>
     </CartStyle>
@@ -64,7 +72,7 @@ export default function ShoppingCart() {
 }
 
 const CartStyle = styled.div`
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
 
@@ -101,7 +109,7 @@ const CartStyle = styled.div`
     color: #730202;
     width: 80%;
     height: 50px;
-    margin: 0 auto;
+    margin: 10px auto 20px auto;
     border: none;
     border-radius: 5px;
     box-shadow: 0 0 2px black;
@@ -126,17 +134,30 @@ const RequestStyle = styled.div`
   color: #000;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   padding: 10px;
   font-size: 25px;
   border-bottom: 1px solid #dedede;
   margin-top: 20px;
+  position:relative;
   > div {
     display: flex;
     flex-direction: column;
     font-size: 18px;
+    margin-bottom:20px;
     > h5 {
       font-size: 24px;
+    }
+  }
+  > p {
+    color: #bf0413;
+    font-size: 1.123rem;
+    position:absolute;
+    bottom:2px;
+    left:5px;
+    cursor: pointer;
+    :hover{
+      color:#ff0000;
     }
   }
 `;

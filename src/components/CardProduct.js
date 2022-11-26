@@ -4,11 +4,6 @@ import BigCard from "./BigCard";
 
 export default function CardProduct({product}) {
   const [highlight, setHighlight] = useState(false)
-  
-
-  // function selected(){
-  //   return(<BigCard />)
-  // }
 
   return (
     <MiniCardStyle onClick={() => setHighlight(!highlight)}>

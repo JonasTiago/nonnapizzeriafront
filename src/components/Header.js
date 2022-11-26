@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CartContext } from "../contexts/CartContext";
 
 export default function Header() {
-  const {openCart, setOpenCart} = useContext(CartContext)
+  const { productsCart, openCart, setOpenCart } = useContext(CartContext);
 
   return (
     <HeaderStyle>
@@ -114,6 +114,11 @@ export default function Header() {
                 strokeWidth="32"
               />
             </svg>
+            {productsCart.length > 0 && (
+              <NotificationStyle>
+                <span>{productsCart.length}</span>
+              </NotificationStyle>
+            )}
           </li>
         </ul>
       </div>
@@ -159,5 +164,23 @@ const HeaderStyle = styled.header`
         color: #d96704;
       }
     }
+  }
+`;
+
+const NotificationStyle = styled.div`
+  position: fixed;
+  top: 0;
+  margin: 5px 0px 0px 26px;
+  background-color: red;
+  width: 25px;
+  height: 25px;
+  border-radius: 50px;
+  color: #ffffff;
+  text-align: center;
+  padding: 4px;
+  > span {
+    font-size: 18px;
+    margin: auto;
+    font-family: monospace, sans-serif;
   }
 `;

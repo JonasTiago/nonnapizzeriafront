@@ -1,13 +1,21 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { pizzas } from "../constant/productos";
 import CardProduct from "./CardProduct";
 
-export default function Section({ pizzas, titulo }) {
+export default function Section({ titulo }) {
+  const [products, setProducts] = useState();
+
+  useEffect(() => {
+    setProducts(pizzas);
+  }, []);
+
   return (
     <SectionStyle>
       <h2>{titulo}</h2>
       <div>
-        {pizzas.map((product) => (
-          <CardProduct product={product} />
+        {products?.map((product) => (
+          <CardProduct product={product} key={product.id} />
         ))}
       </div>
     </SectionStyle>
