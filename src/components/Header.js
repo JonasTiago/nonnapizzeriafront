@@ -128,6 +128,7 @@ const HeaderStyle = styled.header`
     width: 70%;
     height: 100%;
     margin: auto;
+    padding:0 50px 0 0;
   }
   h1 {
     font-size: 32px;
