@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-export default function CardProduct() {
+export default function CardProduct({product}) {
   return (
     <MiniCardStyle>
       <div>
-        <h3>Nome da pizza</h3>
+        <h3>{product.product}</h3>
         <p>
-          Molho de pizza mussarela alho frito molho de alho oregano e azeitonas
+          {product.description}
         </p>
-        <span>R$ 30,00</span>
+        <span>R$ {product.price}</span>
       </div>
       <img
         src="https://media-cdn.tripadvisor.com/media/photo-s/16/5a/ea/95/marguerita.jpg"

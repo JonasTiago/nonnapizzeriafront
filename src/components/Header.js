@@ -4,7 +4,9 @@ export default function Header() {
   return (
     <HeaderStyle>
       <div>
-        <h1>pizza</h1>
+        <h1>
+          Nonna<span>Pizzeria</span>
+        </h1>
         <ul>
           <li>
             <svg
@@ -118,7 +120,7 @@ const HeaderStyle = styled.header`
   position: fixed;
   left: 0;
   top: 0;
-  background-color: red;
+  background-color: #667302;
   width: 100vw;
   height: 6vh;
   > div {
@@ -128,12 +130,15 @@ const HeaderStyle = styled.header`
     width: 70%;
     height: 100%;
     margin: auto;
-    padding:0 50px 0 0;
+    padding: 0 50px 0 0;
   }
   h1 {
-    font-size: 32px;
-    text-transform: uppercase;
+    font-size: 40px;
     font-weight: bold;
+    color: #730202;
+    > span {
+      color: #d99e6a;
+    }
   }
 
   ul {
@@ -143,8 +148,10 @@ const HeaderStyle = styled.header`
       margin-left: 50px;
       width: 30px;
       cursor: pointer;
+      color: #730202;
+
       :hover {
-        color: #fff;
+        color: #d96704;
       }
     }
   }
