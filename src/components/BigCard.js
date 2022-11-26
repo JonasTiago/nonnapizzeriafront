@@ -95,7 +95,7 @@ const ProductDetails = styled.div`
 
 const PriceStyle = styled.div`
   button {
-    background-color: #667302;
+    background-color: #d96704;
     border: none;
     margin: 10px 20px;
     width: 250px;
@@ -103,12 +103,11 @@ const PriceStyle = styled.div`
     cursor: pointer;
     box-shadow: 0 0 2px black;
     border-radius: 5px;
-    color: #d99e6a;
+    color: #FFFFFF;
     font-size: 18px;
     font-weight: bold;
 
     :hover {
-      color: #730202;
       opacity: 0.888;
     }
   }

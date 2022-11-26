@@ -105,8 +105,8 @@ const CartStyle = styled.div`
   }
 
   > button {
-    background-color: #667302;
-    color: #730202;
+    background-color: #730202;
+    color: #ffffff;
     width: 80%;
     height: 50px;
     margin: 10px auto 20px auto;
@@ -119,7 +119,6 @@ const CartStyle = styled.div`
 
     :hover {
       opacity: 0.8;
-      color: #bf0413;
     }
   }
 

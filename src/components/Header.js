@@ -130,7 +130,7 @@ const HeaderStyle = styled.header`
   position: fixed;
   left: 0;
   top: 0;
-  background-color: #667302;
+  background-color: #d96704;
   width: 100vw;
   height: 6vh;
   > div {
@@ -147,7 +147,7 @@ const HeaderStyle = styled.header`
     font-weight: bold;
     color: #730202;
     > span {
-      color: #d99e6a;
+      color: #667302;
     }
   }
 
@@ -157,11 +157,12 @@ const HeaderStyle = styled.header`
     li {
       margin-left: 50px;
       width: 30px;
+      font-weight:bold;
       cursor: pointer;
       color: #730202;
 
       :hover {
-        color: #d96704;
+        color: #667302;
       }
     }
   }
@@ -171,7 +172,8 @@ const NotificationStyle = styled.div`
   position: fixed;
   top: 0;
   margin: 5px 0px 0px 26px;
-  background-color: red;
+  background-color: #667302;
+  border:1px solid #667302;
   width: 25px;
   height: 25px;
   border-radius: 50px;
