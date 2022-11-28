@@ -68,7 +68,7 @@ export default function ShoppingCart() {
         <span>{priceTotal}</span>
       </TotalStyle>
       <button>
-        <Link to={`/checkout${priceTotal}`}>Fechar Pedido</Link>
+        <Link to={priceTotal > 0 && `/checkout${priceTotal}`}>Fechar Pedido</Link>
       </button>
     </CartStyle>
   );

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { CartContext } from "../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const { productsCart, openCart, setOpenCart } = useContext(CartContext);
@@ -13,29 +14,31 @@ export default function Header() {
         </h1>
         <ul>
           <li>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="ionicon"
-              viewBox="0 0 512 512"
-            >
-              <title>Home</title>
-              <path
-                d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="32"
-              />
-              <path
-                d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="32"
-              />
-            </svg>
+            <Link to={"/produtos"}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="ionicon"
+                viewBox="0 0 512 512"
+              >
+                <title>Home</title>
+                <path
+                  d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="32"
+                />
+                <path
+                  d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="32"
+                />
+              </svg>
+            </Link>
           </li>
           <li>
             <svg
@@ -133,6 +136,13 @@ const HeaderStyle = styled.header`
   background-color: #d96704;
   width: 100vw;
   height: 6vh;
+  a {
+    color: #730202;
+
+    :hover {
+      color: #667302;
+    }
+  }
   > div {
     display: flex;
     justify-content: space-between;
@@ -157,7 +167,7 @@ const HeaderStyle = styled.header`
     li {
       margin-left: 50px;
       width: 30px;
-      font-weight:bold;
+      font-weight: bold;
       cursor: pointer;
       color: #730202;
 
@@ -173,7 +183,7 @@ const NotificationStyle = styled.div`
   top: 0;
   margin: 5px 0px 0px 26px;
   background-color: #667302;
-  border:1px solid #667302;
+  border: 1px solid #667302;
   width: 25px;
   height: 25px;
   border-radius: 50px;

@@ -1,21 +1,27 @@
-import { useContext, useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header";
+import BASE_URL from "../../constant/Base_url";
 import { CartContext } from "../../contexts/CartContext";
 
 export default function Checkout() {
   const { productsCart } = useContext(CartContext);
   const { total } = useParams();
-  const [payment, setPayment] = useState();
+  const [form, setForm] = useState();
+  const [fillDemand, setFillDemand] = useState();
+  const [paymentValid, setPaymentValid] = useState(true);
+  const { token } = useContext(AuthContext);
 
   function fillForm(e) {
-    e.preventDefault();
-    setPayment(e.target.value);
+    setPaymentValid(!paymentValid);
+    setForm(e.target.value);
   }
 
   function checkout(e) {
     e.preventDefault();
+
     const products = [];
     productsCart.forEach((product) => {
       products.push({
@@ -27,10 +33,18 @@ export default function Checkout() {
     const demand = {
       products,
       priceTotal: total,
-      payment,
+      payment: form,
     };
-    console.log(demand);
+
+    setFillDemand(demand);
   }
+
+  useEffect(() => {
+    const headers = { authorization: `Bearer ${token}` };
+    const body = fillDemand;
+    const url = `${BASE_URL}/sale`;
+    axios.post(url, body, { headers });
+  }, [fillDemand]);
 
   return (
     <>
@@ -41,15 +55,15 @@ export default function Checkout() {
           <FormStyle>
             <h3>Como você prefere pagar?</h3>
             <form onSubmit={checkout}>
-              <fieldset>
+              <fieldset required>
                 <label htmlFor="credit">
                   <input
                     type="radio"
                     name="payments"
                     value="credit"
                     id="credit"
-                    onChange={fillForm}
                     required
+                    onChange={fillForm}
                   />
                   Cartão de Credito
                 </label>
@@ -59,8 +73,8 @@ export default function Checkout() {
                     name="payments"
                     value="debt"
                     id="debt"
-                    onChange={fillForm}
                     required
+                    onChange={fillForm}
                   />
                   Cartão de Debito
                 </label>
@@ -70,8 +84,8 @@ export default function Checkout() {
                     name="payments"
                     value="pix"
                     id="pix"
-                    onChange={fillForm}
                     required
+                    onChange={fillForm}
                   />
                   Pix
                 </label>
@@ -80,6 +94,7 @@ export default function Checkout() {
                 type="submit"
                 value="Finalizar pedido"
                 onClick={checkout}
+                disabled={paymentValid}
               />
             </form>
           </FormStyle>
@@ -118,7 +133,8 @@ const CheckoutStyle = styled.div`
   > div {
     width: 65vw;
     height: 60vh;
-    background-color: #ffffee;
+    background-color: #d96704;
+    opacity: 0.8;
     border: 1px solid black;
     border-radius: 10px;
     margin-top: 50px;
@@ -164,7 +180,22 @@ const FormStyle = styled.div`
     input[type="submit"] {
       width: 250px;
       height: 50px;
-      background-color: red;
+      background-color: #667302;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 0 3px black;
+      border-radius: 5px;
+      cursor: pointer;
+
+      :hover {
+        opacity: 0.8;
+      }
+      :disabled {
+        cursor: inherit;
+        opacity: 0;
+      }
     }
   }
 `;
@@ -176,11 +207,11 @@ const DetailsStyle = styled.div`
   background-color: #fefeff;
   border: 1px solid black;
   border-radius: 5px;
-  height: 80%;
-  margin-top: 65px;
+  height: 85%;
+  margin-top: 50px;
   padding: 35px;
   h4 {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     margin-bottom: 35px;
   }
   > :nth-child(2) {
