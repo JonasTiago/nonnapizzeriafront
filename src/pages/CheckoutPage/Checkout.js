@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import BASE_URL from "../../constant/Base_url";
@@ -9,10 +9,10 @@ import { CartContext } from "../../contexts/CartContext";
 export default function Checkout() {
   const { productsCart } = useContext(CartContext);
   const { total } = useParams();
+  const navigate = useNavigate()
   const [form, setForm] = useState();
-  const [fillDemand, setFillDemand] = useState();
   const [paymentValid, setPaymentValid] = useState(true);
-  const { token } = useContext(AuthContext);
+  const { token } = /*useContext()*/12121;
 
   function fillForm(e) {
     setPaymentValid(!paymentValid);
@@ -35,16 +35,16 @@ export default function Checkout() {
       priceTotal: total,
       payment: form,
     };
-
-    setFillDemand(demand);
+    sendRequest(demand)
   }
 
-  useEffect(() => {
+  function sendRequest(demand) {
     const headers = { authorization: `Bearer ${token}` };
-    const body = fillDemand;
+    const body = demand;
     const url = `${BASE_URL}/sale`;
     axios.post(url, body, { headers });
-  }, [fillDemand]);
+    navigate("/produtos")
+  }
 
   return (
     <>
