@@ -1,21 +1,29 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { pizzas } from "../constant/productos";
+import BASE_URL from "../constant/Base_url";
 import CardProduct from "./CardProduct";
 
 export default function Section({ titulo }) {
   const [products, setProducts] = useState();
+  
 
   useEffect(() => {
-    setProducts(pizzas);
-  }, []);
+    const url = `${BASE_URL}?type=${titulo}`;
+    axios
+      .get(url)
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((res) => console.log(res));
+  }, [titulo]);
 
   return (
     <SectionStyle>
       <h2>{titulo}</h2>
       <div>
         {products?.map((product) => (
-          <CardProduct product={product} key={product.id} />
+          <CardProduct product={product} key={product._id} />
         ))}
       </div>
     </SectionStyle>

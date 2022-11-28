@@ -6,25 +6,25 @@ export default function BigCard({ product }) {
   const { productsCart, setProductsCart } = useContext(CartContext);
 
   function fillCart(price) {
-    const amountProducts = productsCart.filter(
-      (productCart) => productCart.id === product.id
+    const quantityProducts = productsCart.filter(
+      (productCart) => productCart._id === product._id
     );
 
-    const amountTotal = amountProducts[0]?.amount ? parseInt(amountProducts[0].amount) + 1 : 1;
+    const quantityTotal = quantityProducts[0]?.quantity ? parseInt(quantityProducts[0].quantity) + 1 : 1;
 
     
     const productAddCart = {
-      name: product.product,
+      name: product.name,
       description: product.description,
       price: parseFloat(price).toFixed(2),
-      id: product.id,
-      amount: amountTotal,
+      _id: product._id,
+      quantity: quantityTotal,
     };
 
-    amountProducts?.length
+    quantityProducts?.length
       ? setProductsCart([
           ...productsCart.filter(
-            (productCart) => productCart.id !== product.id
+            (productCart) => productCart._id !== product._id
           ),
           productAddCart,
         ])
@@ -34,12 +34,12 @@ export default function BigCard({ product }) {
   return (
     <BigCardStyle>
       <ProductDetails>
-        <h3>{product.product}</h3>
+        <h3>{product.name}</h3>
         <img
           src={
             "https://media-cdn.tripadvisor.com/media/photo-s/16/5a/ea/95/marguerita.jpg"
           }
-          alt={product.product}
+          alt={product.name}
         />
         <p>{product.description}</p>
         <PriceStyle>

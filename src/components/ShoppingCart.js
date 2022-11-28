@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CartContext } from "../contexts/CartContext";
 
@@ -8,15 +9,17 @@ export default function ShoppingCart() {
   const [priceTotal, setPreceTotal] = useState();
 
   useEffect(() => {
-    const prices = productsCart.map((product) => parseInt(product.price)*(product.amount));
+    const prices = productsCart.map(
+      (product) => parseInt(product.price) * product.quantity
+    );
     const priceSum = prices.length ? prices.reduce((a, b) => a + b) : 0;
 
     setPreceTotal(parseInt(priceSum).toFixed(2));
   }, [productsCart]);
 
-  function removerProduct(id){
-    const itemCart = productsCart.filter(product => product.id !== id)
-    setProductsCart(itemCart)
+  function removerProduct(id) {
+    const itemCart = productsCart.filter((product) => product._id !== id);
+    setProductsCart(itemCart);
   }
 
   return (
@@ -50,15 +53,13 @@ export default function ShoppingCart() {
       </div>
       <section>
         {productsCart?.map((product) => (
-          <RequestStyle key={product.id}>
+          <RequestStyle key={product._id}>
             <div>
-              <h5>
-                {product.name}
-              </h5>
+              <h5>{product.name}</h5>
             </div>
-            <span>{product.amount}</span>
-            <span>{product.price*product.amount}</span>
-            <p onClick={() => removerProduct(product.id)}>Remover</p>
+            <span>{product.quantity}</span>
+            <span>{parseFloat(product.price).toFixed(2)}</span>
+            <p onClick={() => removerProduct(product._id)}>Remover</p>
           </RequestStyle>
         ))}
       </section>
@@ -66,7 +67,9 @@ export default function ShoppingCart() {
         <p>Total</p>
         <span>{priceTotal}</span>
       </TotalStyle>
-      <button>Finalizar Pedido</button>
+      <button>
+        <Link to={`/checkout${priceTotal}`}>Fechar Pedido</Link>
+      </button>
     </CartStyle>
   );
 }
@@ -88,6 +91,12 @@ const CartStyle = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
+  a{
+    text-decoration:none;
+    color: #ffffff;
+
+  }
+
   h3 {
     font-size: 30px;
     color: #730202;
@@ -106,7 +115,6 @@ const CartStyle = styled.div`
 
   > button {
     background-color: #730202;
-    color: #ffffff;
     width: 80%;
     height: 50px;
     margin: 10px auto 20px auto;
@@ -138,12 +146,12 @@ const RequestStyle = styled.div`
   font-size: 25px;
   border-bottom: 1px solid #dedede;
   margin-top: 20px;
-  position:relative;
+  position: relative;
   > div {
     display: flex;
     flex-direction: column;
     font-size: 18px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     > h5 {
       font-size: 24px;
     }
@@ -151,12 +159,12 @@ const RequestStyle = styled.div`
   > p {
     color: #bf0413;
     font-size: 1.123rem;
-    position:absolute;
-    bottom:2px;
-    left:5px;
+    position: absolute;
+    bottom: 2px;
+    left: 5px;
     cursor: pointer;
-    :hover{
-      color:#ff0000;
+    :hover {
+      color: #ff0000;
     }
   }
 `;

@@ -8,11 +8,11 @@ export default function CardProduct({product}) {
   return (
     <MiniCardStyle onClick={() => setHighlight(!highlight)}>
       <div >
-        <h3>{product.product}</h3>
+        <h3>{product.name}</h3>
         <p>
           {product.description}
         </p>
-        <span>R$ {product.price}</span>
+        <span>R$ {parseFloat(product.price).toFixed(2)}</span>
       </div>
       <img
         src="https://media-cdn.tripadvisor.com/media/photo-s/16/5a/ea/95/marguerita.jpg"
