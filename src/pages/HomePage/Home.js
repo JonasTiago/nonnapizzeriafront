@@ -7,7 +7,6 @@ import { CartContext } from "../../contexts/CartContext";
 export default function Home() {
   const { setOpenCart } = useContext(CartContext);
 
-  console.log("teste");
   return (
     <>
       <Header />
